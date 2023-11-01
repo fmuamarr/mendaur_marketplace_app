@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "683420222267",
+    "project_id": "mendaur-pilot",
+    "storage_bucket": "mendaur-pilot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683420222267:android:c6dab3d565df818a7a2d1e",
+        "android_client_info": {
+          "package_name": "com.example.mendaur_pilot_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp4PZvtZWn_r4kbiiBweCen1negbqzUts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
