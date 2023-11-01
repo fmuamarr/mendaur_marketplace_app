@@ -41,6 +41,7 @@ dependencies:
   google_fonts: ^4.0.4
   font_awesome_flutter: ^10.4.0
   email_validator: ^2.1.17
+  getwidget: ^4.0.0
 
 dev_dependencies:
   flutter_test:

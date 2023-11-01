@@ -1,7 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/widgets/basic.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:mendaur_pilot_app/src/constants/colors.dart';
 
 class BeritaCard extends StatelessWidget {
@@ -21,7 +18,7 @@ class BeritaCard extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: kSwatchColor,
               ),
               height: 120,
@@ -32,7 +29,7 @@ class BeritaCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
                 title,
                 textAlign: TextAlign.start,

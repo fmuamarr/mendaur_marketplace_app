@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         primary: Colors.grey[900],
         secondary: Colors.grey[800],
       )),
-      home: BottomNavbar(),
+      home: SplashScreen(),
     );
   }
 }

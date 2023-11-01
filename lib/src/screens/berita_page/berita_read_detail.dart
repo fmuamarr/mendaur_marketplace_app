@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mendaur_pilot_app/src/constants/colors.dart';
 
-class BeritaRead extends StatelessWidget {
+class BeritaReadDetail extends StatelessWidget {
   final url;
   final title;
   final content;
@@ -11,7 +11,7 @@ class BeritaRead extends StatelessWidget {
   final author;
   final urlToImage;
 
-  BeritaRead({
+  BeritaReadDetail({
     this.url,
     this.title,
     this.content,

@@ -7,7 +7,7 @@ import 'package:mendaur_pilot_app/src/constants/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mendaur_pilot_app/src/screens/berita_page/berita_read.dart';
+import 'package:mendaur_pilot_app/src/screens/berita_page/berita_read_detail.dart';
 
 class BeritaPage extends StatefulWidget {
   const BeritaPage({super.key});
@@ -71,7 +71,7 @@ class _BeritaPageState extends State<BeritaPage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (c) => BeritaRead(
+                      builder: (c) => BeritaReadDetail(
                             url: _posts[index]['url'],
                             title: _posts[index]['title'],
                             content: _posts[index]['content'],

@@ -205,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                 ),
-                onPressed: signIn,
+                onPressed: () {},
                 child: const Text(
                   'SIGN UP WITH GOOGLE ACCOUNT',
                   style: TextStyle(
@@ -230,7 +230,7 @@ class _LoginPageState extends State<LoginPage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                 ),
-                onPressed: signIn,
+                onPressed: () {},
                 child: const Text(
                   'SIGN UP WITH PHONE NUMBER',
                   style: TextStyle(
@@ -263,7 +263,7 @@ class _LoginPageState extends State<LoginPage> {
     } on FirebaseAuthException catch (e) {
       print(e);
 
-      Utils.showSnackBar(e.message);
+      Utils.showSnackBar("Email atau Password salah");
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }

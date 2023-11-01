@@ -1,11 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mendaur_pilot_app/src/constants/colors.dart';
+import 'package:mendaur_pilot_app/src/screens/berita_page/berita_page.dart';
 import 'package:mendaur_pilot_app/src/screens/main_screen/dasboardtile.dart';
+import 'package:mendaur_pilot_app/src/widgets/sub_header_title.dart';
+import 'package:mendaur_pilot_app/src/widgets/voucher_card.dart';
+import 'package:http/http.dart' as http;
+
+import '../../widgets/bazar_card.dart';
+import '../../widgets/berita_home.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,6 +29,15 @@ class _HomePageState extends State<HomePage> {
     ["Souvenir", "assets/icons/souvenir.png", SouvenirRoute],
   ];
 
+  List _posts = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getDataNews();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +45,7 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Padding(
@@ -49,13 +65,13 @@ class _HomePageState extends State<HomePage> {
                           suffixIcon: Icon(CupertinoIcons.search),
                           filled: true,
                           fillColor: Colors.white,
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                               width: 2,
                               color: kSwatchColor,
                             ),
                           ),
-                          enabledBorder: OutlineInputBorder(
+                          enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                               width: 1.5,
                               color: kSwatchColor,
@@ -123,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Padding(
@@ -147,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("Rp. 12.000.000"),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Image.asset('assets/images/logo_gopay.png'),
@@ -230,10 +246,59 @@ class _HomePageState extends State<HomePage> {
                 }).toList(),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: SubHeaderWithTitle(
+                title: "Bazar",
+                press: () {},
+                buttonText: "See All>",
+              ),
+            ),
+            BazarCard(),
+            Padding(
+              padding: const EdgeInsets.only(top: 5.0, left: 10.0, right: 10.0),
+              child: SubHeaderWithTitle(
+                title: "Klaim Voucher",
+                press: () {},
+                buttonText: "See All>",
+              ),
+            ),
+            VoucherCard(),
+            Padding(
+              padding: const EdgeInsets.only(top: 5.0, left: 10.0, right: 10.0),
+              child: SubHeaderWithTitle(
+                title: "Berita Terkini",
+                press: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const BeritaPage()),
+                  );
+                },
+                buttonText: "See All>",
+              ),
+            ),
+            BeritaHomeCard(posts: _posts),
           ],
         ),
       ),
     );
+  }
+
+  Future _getDataNews() async {
+    try {
+      final response = await http.get(Uri.parse(
+          'https://newsapi.org/v2/top-headlines?country=id&category=business&apiKey=635c44f3988f445caafbeb76ea9a36cb'));
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        setState(() {
+          _posts = data['articles'];
+        });
+        print(_posts);
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }
 
@@ -249,6 +314,7 @@ void FashionRoute(String title) {
 
 void MaterialRoute(String title) {
   print('Tile ${title} ditekan');
+
   // Tambahkan logika sesuai kebutuhan di sini
 }
 
