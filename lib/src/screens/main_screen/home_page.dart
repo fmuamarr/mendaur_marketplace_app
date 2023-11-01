@@ -141,7 +141,7 @@ class _HomePageState extends State<HomePage> {
                       child: InkWell(
                         onTap: () {
                           // Tambahkan logika ketika tombol pertama ditekan
-                          print("Tombol 1 ditekan");
+                          print("Tombol 1 ditekan sebanyak 10 kali");
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
