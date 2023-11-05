@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mendaur_pilot_app/src/constants/colors.dart';
 import 'package:mendaur_pilot_app/src/screens/berita_page/berita_read_detail.dart';
 
 class BeritaHomeCard extends StatelessWidget {
@@ -20,17 +21,17 @@ class BeritaHomeCard extends StatelessWidget {
           _posts.length,
           (index) => GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (c) => BeritaReadDetail(
-                            url: _posts[index]['url'],
-                            title: _posts[index]['title'],
-                            content: _posts[index]['content'],
-                            publisedAt: _posts[index]['publishedAt'],
-                            author: _posts[index]['author'],
-                            urlToImage: _posts[index]['urlToImage'],
-                          )));
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (c) => BeritaReadDetail(
+              //               url: _posts[index]['url'],
+              //               title: _posts[index]['title'],
+              //               content: _posts[index]['content'],
+              //               publisedAt: _posts[index]['publishedAt'],
+              //               author: _posts[index]['author'],
+              //               urlToImage: _posts[index]['urlToImage'],
+              //             )));
             },
             child: Card(
               elevation: 2, // Atur tinggi bayangan sesuai kebutuhan
@@ -58,9 +59,12 @@ class BeritaHomeCard extends StatelessWidget {
                               ? Image.network(
                                   _posts[index]['urlToImage'],
                                 )
-                              : Image.asset(
-                                  'assets/images/bazar_cek.png',
-                                  fit: BoxFit.cover,
+                              : Container(
+                                  color: kBGGreyColor,
+                                  child: Image.asset(
+                                    'assets/images/null_image.png',
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                         ),
                       ),

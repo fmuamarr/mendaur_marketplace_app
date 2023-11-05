@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mendaur_pilot_app/src/constants/colors.dart';
+import 'package:mendaur_pilot_app/src/constants/fonts.dart';
 import 'package:mendaur_pilot_app/src/screens/sign_up_screen/sign_up_screen.dart';
+import 'package:mendaur_pilot_app/src/widgets/login_widgets/custom_button_login.dart';
+import 'package:mendaur_pilot_app/src/widgets/login_widgets/custom_text_field.dart';
 
 import '../../../main.dart';
 import '../../utils/utils.dart';
@@ -59,46 +62,36 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-              child: TextField(
-                controller: emailController,
-                autofocus: false,
-                enableInteractiveSelection: true,
-                style: GoogleFonts.athiti(fontWeight: FontWeight.w600),
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(CupertinoIcons.person_alt_circle_fill),
-                  filled: true,
-                  fillColor: Colors.white,
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: Color(0xFF85A2A9),
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 1.5,
-                      color: kPrimaryColor,
-                    ),
-                  ),
-                  hintText: "Email",
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+              child: CustomTextFieldLogin(
+                fieldController: emailController,
+                hintText: "Email/Phone Number",
+                prefixIcon: Icon(
+                  CupertinoIcons.person_alt_circle_fill,
+                  color: kBorderLoginSignUp,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
               child: TextField(
+                style: kAthitiFontNormal.copyWith(fontSize: 16),
                 controller: passwordController,
                 obscureText: !_passwordVisible,
                 enableInteractiveSelection: true,
                 decoration: InputDecoration(
-                  prefixIcon: Icon(CupertinoIcons.lock_circle_fill),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                  prefixIcon: Icon(
+                    CupertinoIcons.lock_circle_fill,
+                    color: kBorderLoginSignUp,
+                  ),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _passwordVisible
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: Color(0xFF85A2A9),
+                      color: kBorderLoginSignUp,
                     ),
                     onPressed: () {
                       setState(() {
@@ -109,15 +102,17 @@ class _LoginPageState extends State<LoginPage> {
                   filled: true,
                   fillColor: Colors.white,
                   focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
                     borderSide: BorderSide(
                       width: 2,
-                      color: Color(0xFF85A2A9),
+                      color: kBorderLoginSignUp,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
                     borderSide: BorderSide(
                       width: 1.5,
-                      color: Color(0xFF85A2A9),
+                      color: kBorderLoginSignUp,
                     ),
                   ),
                   hintText: "Password",
@@ -126,27 +121,18 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 30,
-                right: 30,
+                left: 50,
+                right: 50,
                 top: 10,
                 bottom: 0,
               ),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: kSecondaryColor,
-                  minimumSize: const Size.fromHeight(50),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-                onPressed: signIn,
-                child: Text(
-                  'LOGIN',
-                  style: TextStyle(
-                    fontFamily: GoogleFonts.athiti().fontFamily,
-                    fontSize: 12,
-                    color: Color(0xFFFFFFFD),
-                  ),
-                ),
+              child: Container(
+                height: 40,
+                child: CustomButtonLoginPage(
+                    backgroundColor: kSecondaryColor,
+                    onPressedFunction: signIn,
+                    text: "LOGIN",
+                    textColor: kWhiteColor),
               ),
             ),
             Padding(
@@ -188,56 +174,43 @@ class _LoginPageState extends State<LoginPage> {
                 bottom: 0,
               ),
               child: Center(
-                child: Text("or"),
+                child: Text(
+                  "Or",
+                  style: kAthitiFontNormal,
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 30,
-                right: 30,
+                left: 50,
+                right: 50,
                 top: 10,
                 bottom: 0,
               ),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
+              child: Container(
+                height: 40,
+                child: CustomButtonLoginPage(
                   backgroundColor: kPalleteColor,
-                  minimumSize: const Size.fromHeight(50),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  'SIGN UP WITH GOOGLE ACCOUNT',
-                  style: TextStyle(
-                    fontFamily: 'Work Sans',
-                    fontSize: 12,
-                    color: Color(0xFFFFFFFD),
-                  ),
+                  text: "SIGN UP WITH GOOGLE ACCOUNT",
+                  onPressedFunction: () {},
+                  textColor: kWhiteColor,
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 30,
-                right: 30,
+                left: 50,
+                right: 50,
                 top: 10,
                 bottom: 0,
               ),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
+              child: Container(
+                height: 40,
+                child: CustomButtonLoginPage(
                   backgroundColor: kWhiteColor,
-                  minimumSize: const Size.fromHeight(50),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  'SIGN UP WITH PHONE NUMBER',
-                  style: TextStyle(
-                    fontFamily: 'Work Sans',
-                    fontSize: 12,
-                    color: Colors.black,
-                  ),
+                  text: "SIGN UP WITH PHONE NUMBER",
+                  onPressedFunction: () {},
+                  textColor: Colors.black,
                 ),
               ),
             ),

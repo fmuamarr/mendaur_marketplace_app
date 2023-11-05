@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mendaur_pilot_app/src/constants/colors.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:mendaur_pilot_app/src/constants/fonts.dart';
+import 'package:mendaur_pilot_app/src/constants/styles.dart';
+import 'package:mendaur_pilot_app/src/widgets/login_widgets/custom_button_login.dart';
+import 'package:mendaur_pilot_app/src/widgets/login_widgets/custom_text_field.dart';
 
 import '../../../main.dart';
 import '../../Utils/utils.dart';
@@ -17,6 +21,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmpasswordController = TextEditingController();
@@ -57,69 +62,61 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 2.5),
-                child: TextFormField(
-                  controller: emailController,
-                  enableInteractiveSelection: true,
-                  style: TextStyle(
-                    fontFamily: GoogleFonts.athiti().fontFamily,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (email) =>
-                      email != null && !EmailValidator.validate(email)
-                          ? 'Masukkan format email yang benar'
-                          : null,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(
-                      CupertinoIcons.person_alt_circle_fill,
-                      color: Colors.grey,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          const BorderSide(width: 2, color: kPrimaryColor),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 1.5,
-                        color: kPrimaryColor,
-                      ),
-                    ),
-                    hintText: "Email",
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 7.5),
+                child: CustomTextFieldLogin(
+                  fieldController: nameController,
+                  hintText: "Full Name",
+                  prefixIcon: Icon(
+                    CupertinoIcons.person_alt_circle_fill,
+                    color: kBorderLoginSignUp,
                   ),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 2.5),
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 7.5),
                 child: TextFormField(
+                  controller: emailController,
+                  enableInteractiveSelection: true,
+                  style: kAthitiFontNormal.copyWith(fontSize: 16),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (email) =>
+                      email != null && !EmailValidator.validate(email)
+                          ? 'Masukkan format email yang benar'
+                          : null,
+                  decoration: kFormInputDecoration(
+                      prefixIcon: Icon(
+                        CupertinoIcons.phone_fill,
+                        color: kBorderLoginSignUp,
+                      ),
+                      suffixIcon: null,
+                      hintText: "Phone Number"),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 7.5),
+                child: TextFormField(
+                  style: kAthitiFontNormal.copyWith(fontSize: 16),
                   obscureText: !_passwordVisible,
                   controller: passwordController,
-                  enableInteractiveSelection: true,
-                  style: TextStyle(
-                    fontFamily: GoogleFonts.athiti().fontFamily,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
+                  // enableInteractiveSelection: true,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) => value != null && value.length < 6
-                      ? 'Password minimal 6 karakter'
+                  validator: (value) => value != null && value.length < 8
+                      ? 'Password minimal 8 karakter'
                       : null,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(
+                  decoration: kFormInputDecoration(
+                    hintText: "Password",
+                    prefixIcon: Icon(
                       CupertinoIcons.lock_circle_fill,
-                      color: Colors.grey,
+                      color: kBorderLoginSignUp,
                     ),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _passwordVisible
                             ? Icons.visibility_off
                             : Icons.visibility,
-                        color: Colors.grey,
+                        color: kBorderLoginSignUp,
                       ),
                       onPressed: () {
                         setState(() {
@@ -127,36 +124,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         });
                       },
                     ),
-                    filled: true,
-                    fillColor: kBGGreyColor,
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 1.5,
-                        color: kPrimaryColor,
-                      ),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 1.5,
-                        color: kPrimaryColor,
-                      ),
-                    ),
-                    hintText: "Password",
                   ),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 2.5),
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 7.5),
                 child: TextFormField(
                   obscureText: !_passwordVisible,
                   controller: confirmpasswordController,
                   enableInteractiveSelection: true,
-                  style: TextStyle(
-                    fontFamily: GoogleFonts.athiti().fontFamily,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
+                  style: kAthitiFontNormal.copyWith(fontSize: 16),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
                     if (value != passwordController.text) {
@@ -164,17 +142,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     }
                     return null;
                   },
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(
+                  decoration: kFormInputDecoration(
+                    hintText: "Password",
+                    prefixIcon: Icon(
                       CupertinoIcons.lock_circle_fill,
-                      color: Colors.grey,
+                      color: kBorderLoginSignUp,
                     ),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _passwordVisible
                             ? Icons.visibility_off
                             : Icons.visibility,
-                        color: Colors.grey,
+                        color: kBorderLoginSignUp,
                       ),
                       onPressed: () {
                         setState(() {
@@ -182,27 +161,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         });
                       },
                     ),
-                    filled: true,
-                    fillColor: kBGGreyColor,
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 1.5,
-                        color: kPrimaryColor,
-                      ),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 1.5,
-                        color: kPrimaryColor,
-                      ),
-                    ),
-                    hintText: "Confirm Password",
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
+                  horizontal: 50,
                 ),
                 child: Text(
                   'By signing up, you are agree to our Terms & Conditions and Privacy Policy',
@@ -214,25 +178,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                  left: 30,
-                  right: 30,
-                  top: 20,
+                  left: 50,
+                  right: 50,
+                  top: 10,
                   bottom: 0,
                 ),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
+                child: SizedBox(
+                  height: 45,
+                  child: CustomButtonLoginPage(
                     backgroundColor: kPalleteColor,
-                    minimumSize: const Size.fromHeight(50),
-                  ),
-                  onPressed: signIn,
-                  child: Text(
-                    'SIGN UP',
-                    style: TextStyle(
-                      fontFamily: GoogleFonts.athiti().fontFamily,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14,
-                      color: Color(0xFFFFFFFD),
-                    ),
+                    text: "SIGN UP",
+                    onPressedFunction: () {
+                      signIn();
+                    },
+                    textColor: kWhiteColor,
                   ),
                 ),
               ),

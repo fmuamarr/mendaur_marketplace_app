@@ -25,7 +25,7 @@ class DashboardTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: kWhiteColor,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey),
+          border: Border.all(color: kBorderColorWhite),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.3), // Warna shadow
@@ -54,7 +54,7 @@ class DashboardTile extends StatelessWidget {
                   Text(
                     dashboardTitle,
                     style: TextStyle(
-                      color: kPrimaryColor,
+                      color: Colors.black,
                       fontFamily: GoogleFonts.inter().fontFamily,
                       fontSize: 12,
                     ),
