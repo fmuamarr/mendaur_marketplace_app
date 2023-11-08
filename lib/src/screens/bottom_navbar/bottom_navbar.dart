@@ -6,6 +6,7 @@ import 'package:mendaur_pilot_app/src/screens/main_screen/home_page.dart';
 import 'package:mendaur_pilot_app/src/screens/main_screen/notification_page.dart';
 import 'package:mendaur_pilot_app/src/screens/main_screen/profile_page.dart';
 
+// ignore: must_be_immutable
 class BottomNavbar extends StatefulWidget {
   String? to;
   BottomNavbar({Key? key, this.to}) : super(key: key);
@@ -26,11 +27,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
   @override
   Widget build(BuildContext context) {
     List pages = [
-      HomePage(
+      const HomePage(
           // to: widget.to ?? "",
           ),
       const NotificationPage(),
-      ChatPage(),
+      const ChatPage(),
       const ProfilePage(),
     ];
     return Scaffold(

@@ -1,11 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:mendaur_pilot_app/src/constants/colors.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mendaur_pilot_app/src/screens/berita_page/berita_read_detail.dart';
 
@@ -31,12 +27,12 @@ class _BeritaPageState extends State<BeritaPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kWhiteColor,
-        title: Text(
+        title: const Text(
           "Berita Terkini",
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
           ),

@@ -7,7 +7,7 @@ InputDecoration kFormInputDecoration({
   IconButton? suffixIcon,
 }) {
   return InputDecoration(
-    contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
     filled: true,

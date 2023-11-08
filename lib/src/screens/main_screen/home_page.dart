@@ -1,18 +1,19 @@
-import 'dart:convert';
+// ignore_for_file: non_constant_identifier_names, avoid_print
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mendaur_pilot_app/controller/rssfeedcontroller.dart';
 import 'package:mendaur_pilot_app/src/constants/colors.dart';
-import 'package:mendaur_pilot_app/src/screens/berita_page/berita_page.dart';
+import 'package:mendaur_pilot_app/src/screens/bazar_screen/bazar_list_page.dart';
+import 'package:mendaur_pilot_app/src/screens/bazar_screen/bazar_read_detail.dart';
 import 'package:mendaur_pilot_app/src/screens/berita_page/berita_rss.dart';
 import 'package:mendaur_pilot_app/src/screens/main_screen/dasboardtile.dart';
 import 'package:mendaur_pilot_app/src/screens/main_screen/widget/header_shape_stack.dart';
 import 'package:mendaur_pilot_app/src/widgets/sub_header_title.dart';
 import 'package:mendaur_pilot_app/src/widgets/voucher_card.dart';
-import 'package:http/http.dart' as http;
 
 import '../../widgets/bazar_card.dart';
 import '../../widgets/berita_home.dart';
@@ -32,13 +33,15 @@ class _HomePageState extends State<HomePage> {
     ["Souvenir", "assets/icons/souvenir.png", SouvenirRoute],
   ];
 
-  List _posts = [];
+  // List _posts = []; //Untuk API
+
+  RssFeedController controller = RssFeedController();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _getDataNews();
+    // _getDataNews(); //FUNGSI API
+    controller.loadFeed();
   }
 
   @override
@@ -46,17 +49,17 @@ class _HomePageState extends State<HomePage> {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          Container(
+          SizedBox(
             height: 85,
             width: MediaQuery.of(context).size.width,
-            child: HeaderShapeStack(),
+            child: const HeaderShapeStack(),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               children: [
                 Expanded(
-                  child: Container(
+                  child: SizedBox(
                     height: 40,
                     child: TextField(
                       style: TextStyle(
@@ -65,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       onTap: () {},
                       decoration: InputDecoration(
-                        suffixIcon: Icon(CupertinoIcons.search),
+                        suffixIcon: const Icon(CupertinoIcons.search),
                         filled: true,
                         fillColor: Colors.white,
                         focusedBorder: const OutlineInputBorder(
@@ -85,8 +88,8 @@ class _HomePageState extends State<HomePage> {
                           fontFamily: GoogleFonts.athiti().fontFamily,
                           fontSize: 12,
                         ),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
                       ),
                     ),
                   ),
@@ -146,7 +149,7 @@ class _HomePageState extends State<HomePage> {
             height: 20,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Container(
               height: 60,
               decoration: BoxDecoration(
@@ -165,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Rp. 12.000.000"),
+                          const Text("Rp. 12.000.000"),
                           const SizedBox(
                             height: 5,
                           ),
@@ -189,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("45"),
+                          const Text("45"),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -252,11 +255,19 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: SubHeaderWithTitle(
               title: "Bazar",
-              press: () {},
+              press: () {
+                Get.to(BazarListPage());
+              },
               buttonText: "See All>",
             ),
           ),
-          BazarCard(),
+          BazarCard(
+            onBazarCardTapped: (bazar) {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BazarDetailPage(bazar: bazar),
+              ));
+            },
+          ),
           Padding(
             padding: const EdgeInsets.only(top: 5.0, left: 10.0, right: 10.0),
             child: SubHeaderWithTitle(
@@ -265,7 +276,7 @@ class _HomePageState extends State<HomePage> {
               buttonText: "See All>",
             ),
           ),
-          VoucherCard(),
+          const VoucherCard(),
           Padding(
             padding: const EdgeInsets.only(top: 5.0, left: 10.0, right: 10.0),
             child: SubHeaderWithTitle(
@@ -281,47 +292,52 @@ class _HomePageState extends State<HomePage> {
               buttonText: "See All>",
             ),
           ),
-          BeritaHomeCard(posts: _posts),
+          BeritaHomeCard(
+            controller: RssFeedController(),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
         ],
       ),
     );
   }
 
-  Future _getDataNews() async {
-    try {
-      final response = await http.get(Uri.parse(
-          'https://newsapi.org/v2/top-headlines?country=id&category=business&apiKey=635c44f3988f445caafbeb76ea9a36cb'));
+  // Future _getDataNews() async {
+  //   try {
+  //     final response = await http.get(Uri.parse(
+  //         'https://newsapi.org/v2/top-headlines?country=id&category=business&apiKey=635c44f3988f445caafbeb76ea9a36cb'));
 
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        setState(() {
-          _posts = data['articles'];
-        });
-        print(_posts);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  //     if (response.statusCode == 200) {
+  //       final data = json.decode(response.body);
+  //       setState(() {
+  //         _posts = data['articles'];
+  //       });
+  //       print(_posts);
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 }
 
 void FurnitureRoute(String title) {
-  print('Tile ${title} ditekan');
+  print('Tile $title ditekan');
   // Tambahkan logika sesuai kebutuhan di sini
 }
 
 void FashionRoute(String title) {
-  print('Tile ${title} ditekan');
+  print('Tile $title ditekan');
   // Tambahkan logika sesuai kebutuhan di sini
 }
 
 void MaterialRoute(String title) {
-  print('Tile ${title} ditekan');
+  print('Tile $title ditekan');
 
   // Tambahkan logika sesuai kebutuhan di sini
 }
 
 void SouvenirRoute(String title) {
-  print('Tile ${title} ditekan');
+  print('Tile $title ditekan');
   // Tambahkan logika sesuai kebutuhan di sini
 }

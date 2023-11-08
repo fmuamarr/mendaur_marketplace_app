@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mendaur_pilot_app/src/constants/colors.dart';
@@ -34,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
+    super.initState();
     _passwordVisible = false;
   }
 
@@ -65,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
               child: CustomTextFieldLogin(
                 fieldController: emailController,
-                hintText: "Email/Phone Number",
+                hintText: "Email",
                 prefixIcon: Icon(
                   CupertinoIcons.person_alt_circle_fill,
                   color: kBorderLoginSignUp,
@@ -126,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                 top: 10,
                 bottom: 0,
               ),
-              child: Container(
+              child: SizedBox(
                 height: 40,
                 child: CustomButtonLoginPage(
                     backgroundColor: kSecondaryColor,
@@ -187,7 +189,7 @@ class _LoginPageState extends State<LoginPage> {
                 top: 10,
                 bottom: 0,
               ),
-              child: Container(
+              child: SizedBox(
                 height: 40,
                 child: CustomButtonLoginPage(
                   backgroundColor: kPalleteColor,
@@ -204,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                 top: 10,
                 bottom: 0,
               ),
-              child: Container(
+              child: SizedBox(
                 height: 40,
                 child: CustomButtonLoginPage(
                   backgroundColor: kWhiteColor,

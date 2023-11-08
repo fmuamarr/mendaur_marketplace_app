@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mendaur_pilot_app/src/constants/fonts.dart';
-import 'package:mendaur_pilot_app/src/screens/main_screen/widget/header_shape_stack.dart';
 import 'package:mendaur_pilot_app/src/widgets/default_appbar.dart';
 
 class NotificationPage extends StatelessWidget {

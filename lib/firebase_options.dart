@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -59,5 +56,15 @@ class DefaultFirebaseOptions {
     projectId: 'mendaur-pilot',
     databaseURL: 'https://mendaur-pilot-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'mendaur-pilot.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyBTiJrqp8Bgy4m4DlvFuBhSjllxFHCFEhY',
+    appId: '1:683420222267:ios:a54336865a4489607a2d1e',
+    messagingSenderId: '683420222267',
+    projectId: 'mendaur-pilot',
+    databaseURL: 'https://mendaur-pilot-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'mendaur-pilot.appspot.com',
+    iosBundleId: 'com.example.mendaurPilotApp',
   );
 }

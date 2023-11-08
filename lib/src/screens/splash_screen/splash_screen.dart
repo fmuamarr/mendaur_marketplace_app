@@ -13,34 +13,41 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    Timer(
-        const Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => StreamBuilder<User?>(
-                stream: FirebaseAuth.instance.authStateChanges(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return const Center(
-                      child: Text("Something went wrong!"),
-                    );
-                  } else if (snapshot.hasData) {
-                    return BottomNavbar();
-                  } else {
-                    return const LoginPage();
-                  }
-                },
-              ),
-            )));
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   Timer(
+  //     const Duration(seconds: 3),
+  //     () {
+  //       if (mounted) {
+  //         // Check if the widget is still mounted
+  //         Navigator.pushReplacement(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => StreamBuilder<User?>(
+  //               stream: FirebaseAuth.instance.authStateChanges(),
+  //               builder: (context, snapshot) {
+  //                 if (snapshot.connectionState == ConnectionState.waiting) {
+  //                   return const Center(
+  //                     child: CircularProgressIndicator(),
+  //                   );
+  //                 } else if (snapshot.hasError) {
+  //                   return const Center(
+  //                     child: Text("Something went wrong!"),
+  //                   );
+  //                 } else if (snapshot.hasData) {
+  //                   return BottomNavbar();
+  //                 } else {
+  //                   return const LoginPage();
+  //                 }
+  //               },
+  //             ),
+  //           ),
+  //         );
+  //       }
+  //     },
+  //   );
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
               'assets/images/logo_splash.png',
               width: 350.0,
             ),
-            Text(
+            const Text(
               "Presented by",
               style: TextStyle(color: Colors.white),
             ),

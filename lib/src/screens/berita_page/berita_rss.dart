@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mendaur_pilot_app/controller/rssfeedcontroller.dart';
 import 'package:mendaur_pilot_app/src/constants/colors.dart';
 import 'package:webfeed/webfeed.dart';
-import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +9,7 @@ import 'package:intl/intl.dart';
 class BeritaRSS extends StatefulWidget {
   final RssFeedController controller;
 
-  BeritaRSS({Key? key, required this.controller}) : super(key: key);
+  const BeritaRSS({Key? key, required this.controller}) : super(key: key);
 
   final String title = 'RSS Feed Demo';
 
@@ -19,15 +18,10 @@ class BeritaRSS extends StatefulWidget {
 }
 
 class BeritaRSSState extends State<BeritaRSS> {
-  //
-  // ignore: constant_identifier_names
-  // static const String FEED_URL =
-  //     'https://www.antaranews.com/rss/warta-bumi.xml';
   RssFeed? _feed;
   String? _title;
   static const String loadingFeedMsg = 'Loading Feed...';
   static const String feedLoadErrorMsg = 'Error Loading Feed.';
-  static const String feedOpenErrorMsg = 'Error Opening Feed.';
   static const String placeholderImg = 'assets/images/no_image.png';
   GlobalKey<RefreshIndicatorState>? _refreshKey;
 

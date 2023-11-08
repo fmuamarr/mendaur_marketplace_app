@@ -1,10 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mendaur_pilot_app/controller/profile_controller.dart';
+import 'package:mendaur_pilot_app/model/user_model.dart';
 import 'package:mendaur_pilot_app/src/constants/colors.dart';
+import 'package:mendaur_pilot_app/repository/authentication/authentication_repository.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final controller = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +36,7 @@ class ProfilePage extends StatelessWidget {
                   left: (MediaQuery.of(context).size.width - 100) / 2,
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage('assets/images/logo_gopay.png'),
+                    backgroundImage: AssetImage('assets/images/no_image.png'),
                   ),
                 ),
                 Positioned(
@@ -56,33 +66,58 @@ class ProfilePage extends StatelessWidget {
           children: [
             Expanded(
               flex: 2,
-              child: ListView(
-                children: [
-                  buildListTile(
-                      "Nama",
-                      TextButton(
-                          onPressed: () {}, child: const Text("Lorem Ipsum"))),
-                  buildListTile(
-                      "Tempat Lahir",
-                      TextButton(
-                          onPressed: () {}, child: const Text("Lorem Ipsum"))),
-                  buildListTile(
-                      "Tanggal Lahir",
-                      TextButton(
-                          onPressed: () {}, child: const Text("Lorem Ipsum"))),
-                  buildListTile(
-                      "Jenis Kelamin",
-                      TextButton(
-                          onPressed: () {}, child: const Text("Lorem Ipsum"))),
-                  buildListTile(
-                      "Email",
-                      TextButton(
-                          onPressed: () {}, child: const Text("Lorem Ipsum"))),
-                  buildListTile(
-                      "No. Telepon",
-                      TextButton(
-                          onPressed: () {}, child: const Text("Lorem Ipsum"))),
-                ],
+              child: FutureBuilder(
+                future: controller.getUserdata(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasData) {
+                      UserModel userData = snapshot.data as UserModel;
+                      return ListView(
+                        children: [
+                          buildListTile(
+                              "Nama",
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(userData.fullName))),
+                          buildListTile(
+                              "Tempat Lahir",
+                              TextButton(
+                                  onPressed: () {},
+                                  child: const Text("Lorem Ipsum"))),
+                          buildListTile(
+                              "Tanggal Lahir",
+                              TextButton(
+                                  onPressed: () {},
+                                  child: const Text("Lorem Ipsum"))),
+                          buildListTile(
+                              "Jenis Kelamin",
+                              TextButton(
+                                  onPressed: () {},
+                                  child: const Text("Lorem Ipsum"))),
+                          buildListTile(
+                              "Email",
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(userData.email))),
+                          buildListTile(
+                              "No. Telepon",
+                              TextButton(
+                                  onPressed: () {},
+                                  child: Text(userData.phoneNo))),
+                        ],
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text(snapshot.error.toString()));
+                    } else {
+                      return const Center(
+                          child: Text("Something went wrong..."));
+                    }
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               ),
             ),
             Flexible(
@@ -96,7 +131,7 @@ class ProfilePage extends StatelessWidget {
                       minimumSize: const Size(150, 40),
                       side: const BorderSide(color: Colors.red)),
                   onPressed: () {
-                    FirebaseAuth.instance.signOut();
+                    AuthenticationRepository.instance.logout();
                   },
                   child: const Text("Keluar"),
                 )),

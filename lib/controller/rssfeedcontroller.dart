@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
 class RssFeedController extends ChangeNotifier {
   RssFeed? _feed;
+  // ignore: constant_identifier_names
   static const String FEED_URL =
       'https://www.antaranews.com/rss/warta-bumi.xml';
 
@@ -18,7 +19,9 @@ class RssFeedController extends ChangeNotifier {
       _feed = feed;
       notifyListeners(); // Memberi tahu listener bahwa data telah berubah
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

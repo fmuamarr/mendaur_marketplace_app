@@ -10,7 +10,7 @@ const kBorderColorWhite = Color(0xffffffff);
 final kBorderColorBazar = const Color(0x00FFFFFF).withOpacity(0.1);
 final kBorderColorPayment = const Color(0xB2A29292).withOpacity(0.7);
 const kFontBlack = Color(0x00FFFFFF);
-final kBorderLoginSignUp = Color(0x400B4654).withOpacity(0.25);
+final kBorderLoginSignUp = const Color(0x400B4654).withOpacity(0.25);
 
 const double xs = 28;
 const double sm = 38;

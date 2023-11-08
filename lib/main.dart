@@ -1,13 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:mendaur_pilot_app/src/screens/berita_page/berita_page.dart';
-import 'package:mendaur_pilot_app/src/screens/berita_page/berita_rss.dart';
+import 'package:mendaur_pilot_app/controller/otp_controller.dart';
 import 'package:mendaur_pilot_app/src/screens/bottom_navbar/bottom_navbar.dart';
-import 'package:mendaur_pilot_app/src/screens/login_page/login_page.dart';
-import 'package:mendaur_pilot_app/src/screens/main_screen/notification_page.dart';
-import 'package:mendaur_pilot_app/src/screens/main_screen/profile_page.dart';
+import 'package:mendaur_pilot_app/repository/authentication/authentication_repository.dart';
 import 'package:mendaur_pilot_app/src/screens/splash_screen/splash_screen.dart';
 import 'package:mendaur_pilot_app/src/utils/utils.dart';
 
@@ -15,11 +11,11 @@ import 'firebase_options.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
+      .then((value) => Get.put(AuthenticationRepository()));
 
   runApp(const MyApp());
+  // Get.put(OTPController());
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -34,12 +30,10 @@ class MyApp extends StatelessWidget {
       scaffoldMessengerKey: Utils.messengerKey,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      // theme: ThemeData(
-      //     colorScheme: ColorScheme.fromSwatch().copyWith(
-      //   primary: Colors.grey[900],
-      //   secondary: Colors.grey[800],
-      // )),
-      home: const SplashScreen(),
+      home: const Scaffold(
+          body: Center(
+        child: CircularProgressIndicator(),
+      )),
     );
   }
 }

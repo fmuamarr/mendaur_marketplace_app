@@ -31,7 +31,7 @@ class DashboardTile extends StatelessWidget {
               color: Colors.black.withOpacity(0.3), // Warna shadow
               spreadRadius: 0, // Sebaran shadow
               blurRadius: 0.75, // Blur shadow
-              offset: Offset(0, 3), // Posisi shadow (X, Y)
+              offset: const Offset(0, 3), // Posisi shadow (X, Y)
             ),
           ],
         ),

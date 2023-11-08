@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:mendaur_pilot_app/src/constants/colors.dart';
 
@@ -19,7 +17,7 @@ class HeaderShapeStack extends StatelessWidget {
             clipper: HeadClipperPath(),
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xFF8BBCD6).withOpacity(0.5),
+                color: const Color(0xFF8BBCD6).withOpacity(0.5),
                 border: Border.all(color: kPrimaryColor),
               ),
               width: MediaQuery.of(context).size.width,
@@ -53,32 +51,17 @@ class HeadClipperPath extends CustomClipper<Path> {
     double h = size.height;
 
     Path path = Path();
-    path.moveTo(0, size.height * 0.3364028);
-    path.cubicTo(
-        size.width * 0.1203226,
-        size.height * 0.3559585,
-        size.width * 0.3731767,
-        size.height * 0.4742632,
-        size.width * 0.5023256,
-        size.height * 0.8113208);
-    path.cubicTo(
-        size.width * 0.5490186,
-        size.height * 0.9331849,
-        size.width * 0.6196209,
-        size.height * 0.9873208,
-        size.width * 0.6979465,
-        size.height);
-    path.lineTo(size.width * 0.7771256, size.height);
-    path.cubicTo(
-        size.width * 0.8537605,
-        size.height * 0.9889906,
-        size.width * 0.9325116,
-        size.height * 0.9490755,
-        size.width,
-        size.height * 0.9019745);
-    path.lineTo(size.width, 0);
+    path.moveTo(0, h * 0.3364028);
+    path.cubicTo(w * 0.1203226, h * 0.3559585, w * 0.3731767, h * 0.4742632,
+        w * 0.5023256, h * 0.8113208);
+    path.cubicTo(w * 0.5490186, h * 0.9331849, w * 0.6196209, h * 0.9873208,
+        w * 0.6979465, h);
+    path.lineTo(w * 0.7771256, h);
+    path.cubicTo(w * 0.8537605, h * 0.9889906, w * 0.9325116, h * 0.9490755, w,
+        h * 0.9019745);
+    path.lineTo(w, 0);
     path.lineTo(0, 0);
-    path.lineTo(0, size.height * 0.3364028);
+    path.lineTo(0, h * 0.3364028);
     path.close();
 
     return path;
