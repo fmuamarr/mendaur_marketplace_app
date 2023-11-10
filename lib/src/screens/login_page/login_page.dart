@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mendaur_pilot_app/controller/login_controller.dart';
 import 'package:mendaur_pilot_app/src/constants/colors.dart';
 import 'package:mendaur_pilot_app/src/constants/fonts.dart';
 import 'package:mendaur_pilot_app/src/screens/sign_up_screen/sign_up_screen.dart';
@@ -21,14 +23,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  // final emailController = TextEditingController();
+  // final passwordController = TextEditingController();
   bool _passwordVisible = true;
+  final LoginController _loginController = Get.put(LoginController());
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _loginController.email.dispose();
+    _loginController.password.dispose();
 
     super.dispose();
   }
@@ -66,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
               child: CustomTextFieldLogin(
-                fieldController: emailController,
+                fieldController: _loginController.email,
                 hintText: "Email",
                 prefixIcon: Icon(
                   CupertinoIcons.person_alt_circle_fill,
@@ -78,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
               child: TextField(
                 style: kAthitiFontNormal.copyWith(fontSize: 16),
-                controller: passwordController,
+                controller: _loginController.password,
                 obscureText: !_passwordVisible,
                 enableInteractiveSelection: true,
                 decoration: InputDecoration(
@@ -132,48 +135,53 @@ class _LoginPageState extends State<LoginPage> {
                 height: 40,
                 child: CustomButtonLoginPage(
                     backgroundColor: kSecondaryColor,
-                    onPressedFunction: signIn,
+                    onPressedFunction: () {
+                      _loginController.signInWithEmailAndPassword(
+                        _loginController.email.text.trim(),
+                        _loginController.password.text.trim(),
+                      );
+                    },
                     text: "LOGIN",
                     textColor: kWhiteColor),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.zero,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Don\'t have an account?',
-                    style: TextStyle(
-                      color: kPrimaryColor,
-                      fontFamily: GoogleFonts.athiti().fontFamily,
-                      fontSize: 12,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUpScreen()));
-                    },
-                    child: Text(
-                      'Sign up.',
-                      style: TextStyle(
-                        color: kPrimaryColor,
-                        fontFamily: GoogleFonts.athiti().fontFamily,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.zero,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         'Don\'t have an account?',
+            //         style: TextStyle(
+            //           color: kPrimaryColor,
+            //           fontFamily: GoogleFonts.athiti().fontFamily,
+            //           fontSize: 12,
+            //         ),
+            //       ),
+            //       TextButton(
+            //         onPressed: () {
+            //           Navigator.push(
+            //               context,
+            //               MaterialPageRoute(
+            //                   builder: (context) => const SignUpScreen()));
+            //         },
+            //         child: Text(
+            //           'Sign up.',
+            //           style: TextStyle(
+            //             color: kPrimaryColor,
+            //             fontFamily: GoogleFonts.athiti().fontFamily,
+            //             fontWeight: FontWeight.w600,
+            //             fontSize: 12,
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.only(
-                top: 0,
-                bottom: 0,
+                top: 15,
+                bottom: 15,
               ),
               child: Center(
                 child: Text(
@@ -194,7 +202,9 @@ class _LoginPageState extends State<LoginPage> {
                 child: CustomButtonLoginPage(
                   backgroundColor: kPalleteColor,
                   text: "SIGN UP WITH GOOGLE ACCOUNT",
-                  onPressedFunction: () {},
+                  onPressedFunction: () {
+                    _loginController.signInWithGoogle();
+                  },
                   textColor: kWhiteColor,
                 ),
               ),
@@ -211,7 +221,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: CustomButtonLoginPage(
                   backgroundColor: kWhiteColor,
                   text: "SIGN UP WITH PHONE NUMBER",
-                  onPressedFunction: () {},
+                  onPressedFunction: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUpScreen()));
+                  },
                   textColor: Colors.black,
                 ),
               ),
@@ -222,24 +237,24 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future signIn() async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
-    } on FirebaseAuthException catch (e) {
-      print(e);
+  // Future signIn() async {
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (context) => const Center(
+  //       child: CircularProgressIndicator(),
+  //     ),
+  //   );
+  //   try {
+  //     await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //       email: emailController.text.trim(),
+  //       password: passwordController.text.trim(),
+  //     );
+  //   } on FirebaseAuthException catch (e) {
+  //     print(e);
 
-      Utils.showSnackBar("Email atau Password salah");
-    }
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
-  }
+  //     Utils.showSnackBar("Email atau Password salah");
+  //   }
+  //   navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  // }
 }

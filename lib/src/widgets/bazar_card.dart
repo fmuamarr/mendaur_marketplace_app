@@ -41,9 +41,9 @@ class BazarCard extends StatelessWidget {
                 final imageUrl = bazar.imageURL;
 
                 // Batasi panjang teks bazarPlace menjadi 16 karakter
-                final bazarPlaceLimited = bazarPlace.length <= 12
+                final bazarPlaceLimited = bazarPlace.length <= 10
                     ? bazarPlace
-                    : bazarPlace.substring(0, 12) + '...';
+                    : bazarPlace.substring(0, 10) + '...';
 
                 return GestureDetector(
                   onTap: () {

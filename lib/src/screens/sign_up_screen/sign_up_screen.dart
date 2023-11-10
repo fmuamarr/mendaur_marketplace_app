@@ -98,7 +98,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         color: kBorderLoginSignUp,
                       ),
                       suffixIcon: null,
-                      hintText: "Email"),
+                      hintText: "Email (Opsional)"),
                 ),
               ),
               Padding(

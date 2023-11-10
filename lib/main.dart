@@ -30,10 +30,7 @@ class MyApp extends StatelessWidget {
       scaffoldMessengerKey: Utils.messengerKey,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      home: const Scaffold(
-          body: Center(
-        child: CircularProgressIndicator(),
-      )),
+      home: const SplashScreen(),
     );
   }
 }

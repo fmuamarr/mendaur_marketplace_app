@@ -98,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               "Email",
                               TextButton(
                                   onPressed: () {},
-                                  child: Text(userData.email))),
+                                  child: Text(userData.email ?? ''))),
                           buildListTile(
                               "No. Telepon",
                               TextButton(

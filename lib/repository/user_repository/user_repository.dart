@@ -29,16 +29,20 @@ class UserRepository extends GetxController {
     });
   }
 
-  //Mengambil data yang login dari firestore
-  Future<UserModel> getUserDetails(String email) async {
-    final snapshot =
-        await _db.collection("Users").where("Email", isEqualTo: email).get();
+  Future<UserModel?> getUserDetails(String email) async {
+    try {
+      final snapshot =
+          await _db.collection("Users").where("Email", isEqualTo: email).get();
 
-    if (snapshot.docs.isNotEmpty) {
-      final userData = UserModel.fromSnapshot(snapshot.docs.first);
-      return userData;
-    } else {
-      throw Exception("User data not found"); // Atau tindakan lain yang sesuai
+      if (snapshot.docs.isNotEmpty) {
+        final userData = UserModel.fromSnapshot(snapshot.docs.first);
+        return userData;
+      } else {
+        return null; // User data not found
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+      return null; // Handle the error or return an appropriate value
     }
   }
 
